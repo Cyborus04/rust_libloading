@@ -20,7 +20,7 @@ features = [
     "libloaderapi",
 ]
 
-[target.'cfg(unix)'.dependencies.cfg-if]
+[dependencies.cfg-if]
 version = "1"
 
 [dev-dependencies]

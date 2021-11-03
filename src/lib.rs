@@ -46,10 +46,16 @@ use std::marker;
 use std::ops;
 
 pub use self::error::Error;
-#[cfg(unix)]
-use self::os::unix as imp;
-#[cfg(windows)]
-use self::os::windows as imp;
+
+cfg_if::cfg_if! {
+    if #[cfg(unix)] {
+        use self::os::unix as imp;
+    } else if #[cfg(windows)] {
+        use self::os::windows as imp;
+    } else {
+        compile_error!(concat!("libloading is not supported on this platform"));
+    }
+}
 
 pub mod changelog;
 mod error;
